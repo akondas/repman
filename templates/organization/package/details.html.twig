@@ -10,34 +10,40 @@
 {% block content %}
 
     {% if package.name %}
-        <h4>Package name</h4>
-        <p>{{ package.name }}</p>
-
-        <h4>Description</h4>
-        <p>{{ package.description }}</p>
+        <div class="row">
+            <div class="col-6">
+                <h4>Package name</h4>
+                <p>{{ package.name }}</p>
+            </div>
+            <div class="col-6">
+                <h4>Description</h4>
+                <p>{{ package.description }}</p>
+            </div>
+        </div>
 
         {% if package.latestReleaseDate %}
-            <h4>Latest version</h4>
-            <p>{{ package.latestReleasedVersion }}</p>
-
-            <h4>Released</h4>
-            <p>
-                <span title="{{ package.latestReleaseDate | date('Y-m-d H:i:s') }}">{{ package.latestReleaseDate | time_diff }}</span>
-            </p>
-
-            <h4>Composer require command</h4>
-            <div class="row mb-4">
-                <div class="input-group col-6">
-                    <input id="composer-require" class="form-control" readonly value="composer require {{ package.name }}"/>
-                    <span class="input-group-append">
+            <div class="row">
+                <div class="col-6">
+                    <h4>Latest version</h4>
+                    <p>{{ package.latestReleasedVersion }} (released: <span title="{{ package.latestReleaseDate | date('Y-m-d H:i:s') }}">{{ package.latestReleaseDate | time_diff }}</span>)</p>
+                </div>
+                <div class="col-6">
+                    <h4>Composer require command</h4>
+                    <div class="row">
+                        <div class="input-group col-11">
+                            <input id="composer-require" class="form-control" readonly value="composer require {{ package.name }}"/>
+                            <span class="input-group-append">
                         <button data-clipboard-target="#composer-require" class="copy-to-clipboard btn btn-primary p-2" type="button" data-toggle="tooltip" data-placement="top" data-content="Copy composer require command">
                             {% include 'svg/clipboard.svg' %}
                         </button>
                     </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         {% endif %}
+
+        <hr />
 
         <h3>Available versions</h3>
 
